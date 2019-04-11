@@ -29,7 +29,7 @@ else ifeq ($(PLATFORM),WIN)
     all: build//app.exe
     LIB = ..//build//cyclone.lib
     clean: winclean
-    CFLAGS = -I..//cyclone-headers -L..//build -Wl,-Bstatic -lcyclone -Wl,-Bdynamic -lglu32 -lopengl32
+    CFLAGS = -I..//cyclone-headers -L..//build -Wl,-Bstatic -lcyclone -Wl,-Bdynamic -lglu32 -lopengl32 -lfreeglut
 else
     dylib: build/libcyclone.so
     lib: build/libcyclone.a

@@ -26,7 +26,7 @@ ifeq ($(PLATFORM),LINUX)
     dylib: build/libcyclone.so
     lib: build/libcyclone.a
     clean: linuxclean
-    CFLAGS = -g -ggdb -fPIC -rdynamic -shared -Lstatic -I./cyclone-headers
+    CFLAGS = -g -ggdb -fPIC -rdynamic -shared -Lstatic -I./cyclone-headers -Wall
 else ifeq ($(PLATFORM),WIN)
     dylib: build/cyclone.dll
     lib: build/cyclone.lib
@@ -39,9 +39,10 @@ else
     CFLAGS = -g -ggdb -fPIC -rdynamic -shared -Lstatic -I./cyclone-headers
 endif
 
+# Each src/*.cpp file should have a corresponding object it builds to
 _OBJS = body.o collide_coarse.o collide_fine.o contacts.o \
 		core.o fgen.o joints.o particle.o pcontacts.o \
-		pfgen.o plinks.o pworld.o random.o world.o
+		pfgen.o plinks.o pworld.o random.o world.o timing.o app.o
 OBJS = $(patsubst %,build/%,$(_OBJS))
 
 build/%.o: cyclone-src/%.cpp

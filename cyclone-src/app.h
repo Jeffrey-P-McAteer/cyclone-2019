@@ -1,3 +1,5 @@
+#ifndef CYCLONE_APP_H
+#define CYCLONE_APP_H
 /*
  * The base application class for all demos.
  *
@@ -245,3 +247,5 @@ public:
     /** Handles a key press. */
     virtual void key(unsigned char key);
  };
+
+#endif

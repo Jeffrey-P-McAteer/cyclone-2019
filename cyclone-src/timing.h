@@ -1,3 +1,5 @@
+#ifndef CYCLONE_TIMING_H
+#define CYCLONE_TIMING_H
 /*
  * Timing functions.
  *
@@ -111,3 +113,4 @@ private:
 #endif // CYCLONE_DEMO_TIMING_H
 
 
+#endif

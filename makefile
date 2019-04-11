@@ -31,7 +31,7 @@ else ifeq ($(PLATFORM),WIN)
     dylib: build/cyclone.dll
     lib: build/cyclone.lib
     clean: winclean
-    CFLAGS = -g -ggdb -fPIC -rdynamic -shared -Lstatic -I./cyclone-headers
+    CFLAGS = -g -ggdb -fPIC -shared -Lstatic -I./cyclone-headers
 else
     dylib: build/libcyclone.so
     lib: build/libcyclone.a
@@ -63,10 +63,13 @@ build/libcyclone.a: $(OBJS)
 	ar rvs build/libcyclone.a $^
 
 build/cyclone.dll: $(OBJS)
-	echo TODO
+	$(CC) \
+        $(CFLAGS) \
+        -o build/cyclone.dll \
+        $(OBJS)
 
 build/cyclone.lib: $(OBJS)
-	echo TODO
+	ar rvs build/cyclone.lib $^
 
 linuxclean:
 	if [ -e ./build/ ] ; then rm -rf ./build/ ; fi

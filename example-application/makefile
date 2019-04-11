@@ -23,11 +23,13 @@ endif
 ifeq ($(PLATFORM),LINUX)
     all: build/app
     LIB = ../build/libcyclone.a
-    DYLIB = ../build/libcyclone.so
     clean: linuxclean
     CFLAGS = -I../cyclone-headers -L../build -Wl,-Bstatic -lcyclone -Wl,-Bdynamic -lGL -lGLU -lglut
 else ifeq ($(PLATFORM),WIN)
-    $(error TODO)
+    all: build//app.exe
+    LIB = ..//build//cyclone.lib
+    clean: winclean
+    CFLAGS = -I..//cyclone-headers -L..//build -Wl,-Bstatic -lcyclone -Wl,-Bdynamic -lglu32 -lopengl32 -lfreeglut
 else
     dylib: build/libcyclone.so
     lib: build/libcyclone.a
@@ -43,4 +45,6 @@ build/app: main.cpp $(LIB)
 linuxclean:
 	if [ -e build ] ; then rm -rf build ; fi
 
+winclean:
+    if exist "build" rmdir /Q /S build
 

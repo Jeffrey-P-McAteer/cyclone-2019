@@ -43,8 +43,8 @@ build/app: main.cpp $(LIB)
 	$(CC) -g main.cpp $(CFLAGS) -o build/app
 
 build//app.exe: main.cpp $(LIB)
-    [ -e build ] || mkdir build
-    $(CC) -g main.cpp $(CFLAGS) -o build//app.exe
+	[ -e build ] || mkdir build
+	$(CC) -g main.cpp $(CFLAGS) -o build//app.exe
 
 linuxclean:
 	if [ -e build ] ; then rm -rf build ; fi

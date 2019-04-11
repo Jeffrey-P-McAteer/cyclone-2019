@@ -29,7 +29,7 @@ else ifeq ($(PLATFORM),WIN)
     all: build//app.exe
     LIB = ..//build//cyclone.lib
     clean: winclean
-    CFLAGS = -I..//cyclone-headers -L..//build -Wl,-Bstatic -lcyclone -Wl,-Bdynamic -lglu32 -lopengl32 -lfreeglut
+    CFLAGS = -I..//cyclone-headers -L..//build -Wl,-Bstatic -lcyclone -Wl,-Bdynamic -lglu32 -lopengl32
 else
     dylib: build/libcyclone.so
     lib: build/libcyclone.a
@@ -43,7 +43,7 @@ build/app: main.cpp $(LIB)
 	$(CC) -g main.cpp $(CFLAGS) -o build/app
 
 build//app.exe: main.cpp $(LIB)
-	[ -e build ] || mkdir build
+	if not exist "build" mkdir build
 	$(CC) -g main.cpp $(CFLAGS) -o build//app.exe
 
 linuxclean:

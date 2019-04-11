@@ -46,5 +46,5 @@ linuxclean:
 	if [ -e build ] ; then rm -rf build ; fi
 
 winclean:
-    if exist "build" rmdir /Q /S build
+	if exist "build" rmdir /Q /S build
 

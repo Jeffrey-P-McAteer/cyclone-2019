@@ -46,7 +46,11 @@ _OBJS = body.o collide_coarse.o collide_fine.o contacts.o \
 OBJS = $(patsubst %,build/%,$(_OBJS))
 
 build/%.o: cyclone-src/%.cpp
+ifeq ($(PLATFORM),WIN)
+	if not exist "build" mkdir build
+else
 	[ -e ./build/ ] || mkdir ./build/
+endif
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 build/libcyclone.so: $(OBJS)

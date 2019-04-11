@@ -28,7 +28,8 @@ ifeq ($(PLATFORM),LINUX)
     clean: linuxclean
     CFLAGS = -g -ggdb -fPIC -rdynamic -shared -Lstatic -I./cyclone-headers -Wall
 else ifeq ($(PLATFORM),WIN)
-    dylib: build/cyclone.dll
+    # Windows only gets to build a static library build/cyclone.lib
+    dylib: build/cyclone.lib
     lib: build/cyclone.lib
     clean: winclean
     CFLAGS = -g -ggdb -fPIC -shared -Lstatic -I./cyclone-headers

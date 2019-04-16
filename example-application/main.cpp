@@ -13,7 +13,7 @@
 static void draw_floor() {
     glPushMatrix();
     glTranslatef(0.0f, 0.0f, 0.0f);
-    glScalef(10.0f, 10000.0f, 0.1f);
+    glScalef(10.0f, 10000.0f, 1.0f);
     glutSolidCube(1.0f);
     glPopMatrix();
 }
@@ -32,9 +32,8 @@ private:
     cyclone::ForceRegistry force_registry;
     cyclone::CollisionRegistry collision_registry;
     
-    cyclone::CollisionBox red_box;
-    
-    cyclone::CollisionBox floor;
+    cyclone::CollisionSOLID red_box;
+    cyclone::CollisionSOLID floor;
     
     cyclone::Gravity gravity;
     
@@ -46,8 +45,8 @@ public:
         Application(),
         force_registry(),
         collision_registry(),
-        red_box(),
-        floor(),
+        red_box(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5), // constructor sets size of collision box
+        floor(-5.0, -5.0, -0.5, 5.0, 5.0, 0.5),
         gravity(cyclone::Vector3(0.0, 0.0, -16.0))
     {
         red_box.body = new cyclone::RigidBody();
@@ -58,20 +57,29 @@ public:
         red_box.body->setInertiaTensor(it);
         red_box.body->setDamping(0.9f, 0.9f);
         red_box.body->setCanSleep(true); /* not controlled by user */
+        red_box.body->setAngularDamping(0.9f);
         
         red_box.body->setPosition(0, 0, 3);
         red_box.body->setOrientation(1, 0, 0, 0);
         red_box.body->setRotation(0, 0, 0);
         red_box.body->setVelocity(0, 0, 0);
         
+        red_box.calculateInternals();
+        
         floor.body = new cyclone::RigidBody();
+        
+        floor.body->setInverseMass(0.0); // infinite mass
+        floor.body->setDamping(0.9f, 0.9f);
         floor.body->setPosition(0, 0, 0);
         floor.body->setOrientation(1, 0, 0, 0);
         floor.body->setRotation(0, 0, 0);
         floor.body->setVelocity(0, 0, 0);
         
+        floor.calculateInternals();
+        
         // Setup forces
         force_registry.add(red_box.body, &gravity);
+        
         collision_registry.add(&red_box, &floor);
         
     }
@@ -95,18 +103,18 @@ public:
         
         // Update physics acting on red_box.body
         red_box.body->integrate(duration);
+        floor.body->integrate(duration);
         
         // Perform one round of collision detection
         collision_registry.generateCollisionForces(duration);
         
-        // Do a very basic collision detection and response with the ground.
         cyclone::Vector3 pos = red_box.body->getPosition();
-        std::cout << "pos  = [" << pos.x << ", " << pos.y << ", " << pos.z << "]" << std::endl;
+        std::cout << "red_box pos  = [" << pos.x << ", " << pos.y << ", " << pos.z << "]" << std::endl;
         
-        if (pos.z < 0.25f) {
-            pos.z = 0.25f;
-            red_box.body->setPosition(pos);
-        }
+        // if (pos.z < 0.25f) {
+        //     pos.z = 0.25f;
+        //     red_box.body->setPosition(pos);
+        // }
         
         Application::update();
         
@@ -148,7 +156,10 @@ public:
     }
     
     virtual void key(unsigned char key) {
-        if (key == 'a') {
+        if (key == 'q') {
+            exit(0);
+        }
+        else if (key == 'a') {
             this->camera_offset_x -= 0.1;
         }
         else if (key == 'd') {
@@ -162,10 +173,13 @@ public:
         }
         else if (key == ' ') {
             // Apply a momentary up force
-            this->red_box.body->setVelocity(0, 0, 24);
-            // Also a minor rotation
-            cyclone::Vector3 box_rot = this->red_box.body->getRotation();
-            red_box.body->setRotation(box_rot.x + 0.5, box_rot.y, box_rot.z);
+            this->red_box.body->setVelocity(0, -0.5, 12);
+            
+        }
+        else if (key == 't') {
+            // Apply some torque
+            cyclone::Vector3 torque(0, 0.25, 0);
+            this->red_box.body->addTorque(torque);
         }
     }
     

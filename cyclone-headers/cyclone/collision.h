@@ -36,6 +36,52 @@ namespace cyclone {
     
   };
   
+  /**
+   * A SOLID collision detection and correction algorithm
+   */
+  class CollisionSOLID: public CollisionPrimitive {
+  private:
+      // "lower-bottom-leftmost" (lowest value corner)
+      real x1;
+      real y1;
+      real z1;
+      
+      // "upper-top-rightmost" (highest value corner)
+      real x2;
+      real y2;
+      real z2;
+  public:
+      CollisionSOLID(real x1, real y1, real z1, real x2, real y2, real z2);
+      
+      real getWorldx1() {
+        return this->body->getPosition().x + this->x1;
+      }
+      
+      real getWorldx2() {
+        return this->body->getPosition().x + this->x2;
+      }
+      
+      real getWorldy1() {
+        return this->body->getPosition().y + this->y1;
+      }
+      
+      real getWorldy2() {
+        return this->body->getPosition().y + this->y2;
+      }
+      
+      real getWorldz1() {
+        return this->body->getPosition().z + this->z1;
+      }
+      
+      real getWorldz2() {
+        return this->body->getPosition().z + this->z2;
+      }
+      
+      static bool testIsColliding(CollisionSOLID& a, CollisionSOLID& b);
+      static void correctCollision(CollisionSOLID& a, CollisionSOLID& b, CollisionData& data);
+      
+  };
+  
 };
 
 #endif

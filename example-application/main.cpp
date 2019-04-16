@@ -173,7 +173,7 @@ public:
         }
         else if (key == ' ') {
             // Apply a momentary up force
-            this->red_box.body->setVelocity(0, -0.5, 12);
+            this->red_box.body->setVelocity(-0.4, -0.4, 8);
             
         }
         else if (key == 't') {

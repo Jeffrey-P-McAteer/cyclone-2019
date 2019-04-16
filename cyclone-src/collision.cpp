@@ -123,4 +123,5 @@ void CollisionSOLID::correctCollision(CollisionSOLID& a, CollisionSOLID& b, Coll
   
   a.body->setPosition(apos.x, apos.y, apos.z);
   b.body->setPosition(bpos.x, bpos.y, bpos.z);
+  
 }

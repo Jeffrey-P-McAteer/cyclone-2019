@@ -9,5 +9,12 @@ The code under `cyclone-src` and parts of `cyclone-headers` originates from [htt
 
  * Improved API to build programs on top of the library
 
+# Collision sources
+
+`cyclone-src/collision.cpp` and `cyclone-headers/cyclone/collision.h`.
+
+# Good one-liners
+
+`make && ( cd example-application ; make && ./build/app )`
 
 

@@ -81,7 +81,8 @@ namespace cyclone {
         {
             return transform;
         }
-
+        
+        virtual ~CollisionPrimitive() = default;
 
     protected:
         /**

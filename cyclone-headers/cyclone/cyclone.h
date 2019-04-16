@@ -22,3 +22,4 @@
 #include "joints.h"
 #include "app.h"
 #include "timing.h"
+#include "collision.h"

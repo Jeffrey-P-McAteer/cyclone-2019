@@ -17,4 +17,7 @@ The code under `cyclone-src` and parts of `cyclone-headers` originates from [htt
 
 `make && ( cd example-application ; make && ./build/app )`
 
+# Progress Media
+
+![A jittery start](https://github.com/Jeffrey-P-McAteer/cyclone-2019/raw/master/progress-media/04-16-first-contact-impl.gif "A jittery start")
 

@@ -26,18 +26,18 @@ ifeq ($(PLATFORM),LINUX)
     dylib: build/libcyclone.so
     lib: build/libcyclone.a
     clean: linuxclean
-    CFLAGS = -g -ggdb -fPIC -rdynamic -shared -Lstatic -I./cyclone-headers -Wall
+    CFLAGS = -g -fPIC -rdynamic -shared -Lstatic -I./cyclone-headers -Wall
 else ifeq ($(PLATFORM),WIN)
     # Windows only gets to build a static library build/cyclone.lib
     dylib: build/cyclone.lib
     lib: build/cyclone.lib
     clean: winclean
-    CFLAGS = -g -ggdb -fPIC -shared -Lstatic -I./cyclone-headers
+    CFLAGS = -g -fPIC -shared -Lstatic -I./cyclone-headers
 else
     dylib: build/libcyclone.so
     lib: build/libcyclone.a
     clean: linuxclean
-    CFLAGS = -g -ggdb -fPIC -rdynamic -shared -Lstatic -I./cyclone-headers
+    CFLAGS = -g -fPIC -rdynamic -shared -Lstatic -I./cyclone-headers
 endif
 
 # Each src/*.cpp file should have a corresponding object it builds to
